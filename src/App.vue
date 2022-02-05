@@ -5,23 +5,40 @@
     </v-app-bar>
 
     <v-main>
-      <game-field />
+      <transition name="fade">
+        <Field v-if="show" />
+      </transition>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import GameField from "./components/GameField";
+import Field from "@/components/Field";
 
 export default {
   name: "App",
 
   components: {
-    GameField,
+    Field,
   },
 
   data: () => ({
-    //
+    show: false,
   }),
+
+  mounted() {
+    this.show = true;
+  },
 };
 </script>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 2s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
