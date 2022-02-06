@@ -87,3 +87,42 @@ export const randomInit = () => {
   const cellsSet = setMoves(zero, cells);
   return cellsSet;
 };
+
+export const isGameOver = (cells) => {
+  if (
+    cells[11][0] == 1 &&
+    cells[12][0] == 2 &&
+    cells[13][0] == 3 &&
+    cells[14][0] == 4 &&
+    cells[21][0] == 5 &&
+    cells[22][0] == 6 &&
+    cells[23][0] == 7 &&
+    cells[24][0] == 8 &&
+    cells[31][0] == 9 &&
+    cells[32][0] == 10 &&
+    cells[33][0] == 11 &&
+    cells[34][0] == 12 &&
+    cells[41][0] == 13 &&
+    cells[42][0] == 14 &&
+    cells[43][0] == 15
+  ) {
+    return {
+      11: [1, null],
+      12: [2, null],
+      13: [3, null],
+      14: [4, null],
+      21: [5, null],
+      22: [6, null],
+      23: [7, null],
+      24: [8, null],
+      31: [9, null],
+      32: [10, null],
+      33: [11, null],
+      34: [12, null],
+      41: [13, null],
+      42: [14, null],
+      43: [15, null],
+      44: [0, null],
+    };
+  } else return false;
+};

@@ -9,6 +9,7 @@
         'to-down': isMoved && move === 'down',
         'to-left': isMoved && move === 'left',
         'to-right': isMoved && move === 'right',
+        'cell-ok': isCellOk,
       }"
       ma="0"
       outlined
@@ -36,6 +37,32 @@ export default {
     id: String,
   },
   emits: ["updateField"],
+  computed: {
+    isCellOk() {
+      const idNum = +this.id;
+      const valueNum = +this.value;
+
+      if (
+        (idNum === 11 && valueNum === 1) ||
+        (idNum === 12 && valueNum === 2) ||
+        (idNum === 13 && valueNum === 3) ||
+        (idNum === 14 && valueNum === 4) ||
+        (idNum === 21 && valueNum === 5) ||
+        (idNum === 22 && valueNum === 6) ||
+        (idNum === 23 && valueNum === 7) ||
+        (idNum === 24 && valueNum === 8) ||
+        (idNum === 31 && valueNum === 9) ||
+        (idNum === 32 && valueNum === 10) ||
+        (idNum === 33 && valueNum === 11) ||
+        (idNum === 34 && valueNum === 12) ||
+        (idNum === 41 && valueNum === 13) ||
+        (idNum === 42 && valueNum === 14) ||
+        (idNum === 43 && valueNum === 15)
+      )
+        return true;
+      else return false;
+    },
+  },
   methods: {
     moveHandler() {
       if (this.move) {
@@ -49,7 +76,7 @@ export default {
         setTimeout(() => {
           this.isMoved = false;
           this.$emit("updateField", [updateFieldObj, this.id]);
-        }, 500);
+        }, 300);
       }
     },
   },
@@ -69,7 +96,7 @@ export default {
   right: 0;
   bottom: 0;
   top: 0;
-  transition: bottom 500ms, top 500ms, left 500ms, right 500ms !important;
+  transition: bottom 300ms, top 300ms, left 300ms, right 300ms !important;
   position: absolute;
 }
 .empty-cell {
@@ -92,5 +119,8 @@ export default {
   right: 60px;
   left: -60px;
   z-index: 1;
+}
+.cell-ok {
+  color: #b16a26 !important;
 }
 </style>

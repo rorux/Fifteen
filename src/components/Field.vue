@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <Snackbar :win="isOver" />
     <v-row style="margin: 20px auto; width: 264px"
       ><v-col style="width: 264px">
         <v-row v-for="m in 4" :key="m" no-gutters>
@@ -19,7 +20,8 @@
 
 <script>
 import Cell from "@/components/Cell";
-import { randomInit, setMoves } from "@/services/functions";
+import Snackbar from "@/components/Snackbar";
+import { randomInit, setMoves, isGameOver } from "@/services/functions";
 
 export default {
   name: "Field",
@@ -43,15 +45,22 @@ export default {
         43: [0, null],
         44: [0, null],
       },
+      isOver: false,
     };
   },
   methods: {
     updateFieldHandler(updateFieldArray) {
       const cells = { ...this.field, ...updateFieldArray[0] };
-      this.field = setMoves(updateFieldArray[1], cells);
+      const isGameOverCheck = isGameOver(cells);
+      if (isGameOver(cells)) {
+        this.field = isGameOverCheck;
+        this.isOver = true;
+      } else {
+        this.field = setMoves(updateFieldArray[1], cells);
+      }
     },
   },
-  components: { Cell },
+  components: { Cell, Snackbar },
   mounted() {
     this.field = randomInit();
   },
