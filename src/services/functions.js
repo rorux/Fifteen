@@ -30,6 +30,29 @@ export const setMoves = (id, cells) => {
   return cells;
 };
 
+export const setField = (id, value, move) => {
+  const changedField = {};
+  const row = +id.substring(0, 1);
+  const col = +id.substring(1, 2);
+  if (move === "up") {
+    const id = (row - 1).toString() + col;
+    changedField[id] = [value, "down"];
+  }
+  if (move === "down") {
+    const id = (row + 1).toString() + col;
+    changedField[id] = [value, "up"];
+  }
+  if (move === "left") {
+    const id = row + (col - 1).toString();
+    changedField[id] = [value, "right"];
+  }
+  if (move === "right") {
+    const id = row + (col + 1).toString();
+    changedField[id] = [value, "left"];
+  }
+  return changedField;
+};
+
 export const randomInit = () => {
   let zero = null;
   let start = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];

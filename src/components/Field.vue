@@ -9,6 +9,7 @@
             :value="field[`${m}${n}`][0]"
             :key="`${m}${n}`"
             :move="field[`${m}${n}`][1]"
+            @updateField="updateFieldHandler"
           />
         </v-row>
       </v-col>
@@ -18,7 +19,7 @@
 
 <script>
 import Cell from "@/components/Cell";
-import { randomInit } from "@/services/functions";
+import { randomInit, setMoves } from "@/services/functions";
 
 export default {
   name: "Field",
@@ -43,6 +44,12 @@ export default {
         44: [0, null],
       },
     };
+  },
+  methods: {
+    updateFieldHandler(updateFieldArray) {
+      const cells = { ...this.field, ...updateFieldArray[0] };
+      this.field = setMoves(updateFieldArray[1], cells);
+    },
   },
   components: { Cell },
   mounted() {

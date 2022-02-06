@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import { setField } from "@/services/functions";
+
 export default {
   name: "Cell",
   data() {
@@ -33,14 +35,21 @@ export default {
     move: String,
     id: String,
   },
+  emits: ["updateField"],
   methods: {
     moveHandler() {
       if (this.move) {
         this.isMoved = true;
+        let updateFieldObj = {};
+        updateFieldObj[this.id] = [0, null];
+        updateFieldObj = {
+          ...updateFieldObj,
+          ...setField(this.id, this.value, this.move),
+        };
         setTimeout(() => {
           this.isMoved = false;
+          this.$emit("updateField", [updateFieldObj, this.id]);
         }, 500);
-        console.log(this.id);
       }
     },
   },
@@ -54,13 +63,13 @@ export default {
 }
 .filled-cell {
   border-color: #333 !important;
-  background-color: rgb(192, 157, 93) !important;
+  background-color: rgb(221, 190, 132) !important;
   font-weight: 600;
   left: 0;
   right: 0;
   bottom: 0;
   top: 0;
-  transition: all 500ms ease !important;
+  transition: bottom 500ms, top 500ms, left 500ms, right 500ms !important;
   position: absolute;
 }
 .empty-cell {
