@@ -17,15 +17,12 @@ import Field from "@/components/Field";
 
 export default {
   name: "App",
-
   components: {
     Field,
   },
-
   data: () => ({
     show: false,
   }),
-
   mounted() {
     this.show = true;
   },
@@ -35,7 +32,7 @@ export default {
 <style>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 2s;
+  transition: opacity 1s;
 }
 .fade-enter,
 .fade-leave-to {

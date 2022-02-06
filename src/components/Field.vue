@@ -2,29 +2,14 @@
   <v-container>
     <v-row style="margin: 20px auto; width: 264px"
       ><v-col style="width: 264px">
-        <v-row no-gutters>
-          <Cell :value="1" move="" />
-          <Cell :value="2" move="" />
-          <Cell :value="3" move="" />
-          <Cell :value="4" move="" />
-        </v-row>
-        <v-row no-gutters>
-          <Cell :value="5" move="" />
-          <Cell :value="6" move="" />
-          <Cell :value="7" move="" />
-          <Cell :value="8" move="" />
-        </v-row>
-        <v-row no-gutters>
-          <Cell :value="9" move="" />
-          <Cell :value="10" move="" />
-          <Cell :value="11" move="" />
-          <Cell :value="12" move="" />
-        </v-row>
-        <v-row no-gutters>
-          <Cell :value="13" move="" />
-          <Cell :value="14" move="" />
-          <Cell :value="15" move="" />
-          <Cell :value="0" move="" />
+        <v-row v-for="m in 4" :key="m" no-gutters>
+          <Cell
+            v-for="n in 4"
+            :id="`${m}${n}`"
+            :value="field[`${m}${n}`][0]"
+            :key="`${m}${n}`"
+            :move="field[`${m}${n}`][1]"
+          />
         </v-row>
       </v-col>
     </v-row>
@@ -33,12 +18,13 @@
 
 <script>
 import Cell from "@/components/Cell";
+import { randomInit } from "@/services/functions";
 
 export default {
+  name: "Field",
   data() {
     return {
       field: {
-        // [0-15, 'up' | 'down' | 'left' | 'right' | '']
         11: [0, null],
         12: [0, null],
         13: [0, null],
@@ -58,7 +44,9 @@ export default {
       },
     };
   },
-
   components: { Cell },
+  mounted() {
+    this.field = randomInit();
+  },
 };
 </script>
